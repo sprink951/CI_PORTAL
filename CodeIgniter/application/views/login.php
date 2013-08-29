@@ -1,0 +1,43 @@
+<?php echo $this->load->view('header'); ?>
+<div class="container-fluid">
+    <div class="row-fluid" >
+        <div class="span4 offset2 center_login">
+        <?php
+            $info=array('class'=>'form-horizontal','name'=>'login','id'=>'login');
+            echo form_open('portal/index/login',$info);
+        ?>
+                <div class="control-group">
+                    <label class="control-label " for="inputName">Name</label>
+                    <div class="controls">
+                        <input type="text" name="inputName" id="inputName" placeholder="name">
+                    </div>
+                </div> 
+                
+                <div class="control-group">   
+                    <label class="control-label" for="inputPasswd">Password</label>
+                    <div class="controls">
+                        <input type="password" name="inputPasswd" id="inputPasswd" placeholder="password">
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <button type="submit" class="btn">sign in</button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <div class="span4 center_portal">
+            <div class="marketing">
+                <h2>Portal Introduction</h2>
+                <p>
+                    tal takes place in the Enrichment Center for Aperture Laboratories also known as Aperture Science which is the fictional research corporation responsible for the creation of the portal gun. According to information presented in Portal 2, the location of the complex is in the Upper Peninsula of Michigan. Information about the company, developed by Valve for creating the setting of the game, is revealed during the game and via the real-world promotional website.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->load->view('footer'); ?>

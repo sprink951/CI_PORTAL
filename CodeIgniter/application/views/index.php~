@@ -1,0 +1,21 @@
+<?php
+    if (isset($action))
+    {
+        if ($action == 'welcome')
+        {
+            $this->load->view('portal/portal_up');
+            echo 'welcom';
+            $this->load->view('portal/portal_low');
+        }   
+        elseif ($action == 2)
+            echo "body2";
+        elseif ($action == 3)
+            echo "body3";
+        else
+            echo "body4";
+    }
+    else 
+    {
+        $this->load->view('login');
+    }
+?>

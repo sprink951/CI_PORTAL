@@ -1,0 +1,7 @@
+<?php echo $this->load->view('header'); ?>
+<?php
+   echo $this->load->view('body');
+?>
+<?php
+   echo $this->load->view('footer');
+?>

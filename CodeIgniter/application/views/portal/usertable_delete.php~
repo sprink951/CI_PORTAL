@@ -1,0 +1,13 @@
+<div  id="del_error" cclass="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+              <h3>Important</h3>
+      </div>
+      <div class="modal-body">
+          <p>are u sure delete it…</p>
+      </div>
+      <div class="modal-footer">
+          <a href="#" class="btn btn-primary">Sure</a>
+      </div>
+</div>
+
+

@@ -1,0 +1,153 @@
+
+
+<div class="container-fluid">
+      <div id="div1" class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Menu list</li>
+              <li class="active"><a href=<?php echo base_url("portal/usertable/index");?>>userlist</a></li>
+              <li ><a href="#">webauth</a></li>
+              <li><a href=<?php echo base_url("portal/webpolicy/index");?>>webpolicy</a></li>
+              <li><a href="#">vocher</a></li>
+              <li class="nav-header"></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div  class="span10">
+    <table id="dg" title="My Users" class="easyui-datagrid" 
+            url="<?php echo site_url("portal/usertable/get_usertable");?>"
+            toolbar="#toolbar" pagination="true" rownumbers="true" 
+            fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="id" width="50" sortable=true>ID</th>
+                <th field="username" width="50">Username</th>
+                <th field="password" width="50">Password</th>
+                <th field="active" width="50" >Active-Disabled</th>
+                <th field="profiles" width="50">Profile</th>
+            </tr>
+        </thead>
+    </table>
+  
+    <div  id="toolbar" class="btn-group pull-right">
+        <a href="javascript:void(0)" class="btn"  plain="true" onclick="newUser()"><i class="icon-plus">  </i></a>
+        <a href="javascript:void(0)" class="btn"  plain="true" onclick="editUser()"><i class="icon-pencil">  </i></a>
+        <a href="javascript:void(0)" class="btn"  plain="true" onclick="destroyUser()"><i class="icon-trash">  </i></a>
+    </div>
+
+
+
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px;"
+           closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">User Information</div>
+        <form id="fm" method="post" novalidate>
+            <div class="fitem">
+                <label>ID:</label>
+                <input name="id" class="easyui-validatebox"  readonly>
+            </div>
+            <div class="fitem">
+                <label>Username:</label>
+                <input name="username" class="easyui-validatebox" required="true" >
+            </div>
+            <div class="fitem">
+                <label>Password:</label>
+                <input name="password"class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>Active:</label>
+                <input name="active" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>Profiles:</label>
+                <input name="profiles" class="easyui-combobox" editable:false data-options="valueField:'profilevalue',textField:'profiletext',url:'get_profile'">
+                          
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="btn" onclick="saveUser()"><i class="icon-ok-sign"></i>&nbsp;Save</a>
+        <a href="javascript:void(0)" class="btn" onclick="javascript:$('#dlg').dialog('close')"><i class="icon-remove-sign"></i>Cancel</a>
+    </div>
+    <script type="text/javascript">
+        var url;
+        function newUser(){
+            $('#dlg').dialog('open').dialog('setTitle','New User');
+            $('#fm').form('clear');
+            url = 'create_user';
+        }
+        function editUser(){
+            var row = $('#dg').datagrid('getSelected');
+            if (row){
+                $('#dlg').dialog('open').dialog('setTitle','Edit User');
+                $('#fm').form('load',row);
+                url = 'update_user';
+            }
+        }
+        function saveUser(){
+            $('#fm').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.errorMsg){
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the user data
+                    }
+                }
+            });
+        }
+        function destroyUser(){
+            var row = $('#dg').datagrid('getSelected');
+            if (row){
+                $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+                    if (r){
+                        $.post('destroy_user',{id:row.id},function(result){
+                        	alert(123);
+                            if (result.success){
+                            	alert(123);
+                                $('#dg').datagrid('reload');    // reload the user data
+                            } else {
+                                $.messager.show({    // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        },'json');
+                    }
+                });
+            }
+        }
+
+    </script>
+    <style type="text/css">
+        #fm{
+            margin:0;
+            padding:10px 30px;
+        }
+        .ftitle{
+            font-size:14px;
+            font-weight:bold;
+            padding:5px 0;
+            margin-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .fitem{
+            margin-bottom:5px;
+        }
+        .fitem label{
+            display:inline-block;
+            width:80px;
+        }
+    </style>
+</div>
+</div>
+
+        

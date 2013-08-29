@@ -1,0 +1,42 @@
+<?php if(!defined('BASEPATH')) exit('No direct script access allowed..');
+/*************************************************************************
+	> File Name: controllers/portal/webauth.php
+	> Author: sprink
+	> Mail: tangjing951@gmail.com 
+	> Created Time: 2013年08月21日 星期三 20时06分27秒
+ ************************************************************************/
+class Webauth extends CI_Controller
+{
+      function __construct() 
+      {
+      	parent::__construct();
+      }	
+      
+      function index()
+    {
+        $info['num'] = $this->m_webauth->get_total_num();
+        $info['url'] = 'portal/webauth/index_show';
+    	  $arr = $this->m_common->pagination($info);        
+        $result['link'] = $arr['link'];
+
+    	  $result['webauth']=$this->m_webauth->get_webauth($arr['num'],$arr['offset']);
+
+        $this->load->view('portal/portal_up');
+        $this->load->view('portal/portal_mid_webauth',$result);
+        $this->load->view('portal/portal_low');
+	}
+    function index_show()
+    {
+        $info['num'] = $this->m_webauth->get_total_num();
+        $info['url'] = 'portal/webauth/index_show';
+    	  $arr = $this->m_common->pagination($info);        
+        $result['link'] = $arr['link'];
+
+    	  $result['webauth']=$this->m_webauth->get_webauth($arr['num'],$arr['offset']);
+
+        $this->load->view('portal/portal_up');
+        $this->load->view('portal/portal_mid_webauth',$result);
+        $this->load->view('portal/portal_low');
+	}
+}
+?>
